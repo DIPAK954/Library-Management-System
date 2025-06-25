@@ -1,5 +1,6 @@
 using library.DataModel;
 using library.DataModel.Models;
+using Library_Management_System.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,13 @@ builder.Services.AddTransient<IEmailSender,EmailSender>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+// Seed roles and admin
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DbInitializer.SeedRolesAndAdminAsync(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

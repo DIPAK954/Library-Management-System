@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Library.Service\Library.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
+  </ItemGroup>
+
 </Project>
