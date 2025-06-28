@@ -8,51 +8,101 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Library_Management_System.styles.css" asp-append-version="true" />
     <link href="~/lib/datatables.net-dt/css/datatables.datatables.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #3c0b2d;
+            padding-top: 1rem;
+            position: fixed;
+            top: 56px;
+            bottom: 56px;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .content-area {
+            margin-left: 220px;
+            padding: 1rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-top: 56px;
+            margin-bottom: 56px;
+        }
+
+        footer {
+            height: 56px;
+            line-height: 56px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="wrapper">
+        <!-- Fixed Navbar -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Library_Management_System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Library</a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
                     <ul class="navbar-nav">
-                      @*   <li class="nav-item">
-                            <a class="nav-link text-dark position-relative" asp-area="" asp-controller="Cart" asp-action="Index">
-                                <i class="bi bi-cart"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-                            </a>
-                        </li> *@
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Library_Management_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="main-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Home" asp-action="Index"><i class="bi bi-speedometer2 fs-2"></i><span class="ps-2">Dashboard</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Books" asp-action="Index"><i class="bi bi-book fs-2"></i><span class="ps-2">Book</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Issue" asp-action="Index"><i class="bi bi-send fs-2"></i><span class="ps-2">Issue Book</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Request" asp-action="Index"><i class="bi bi bi-journal-plus fs-2"></i><span class="ps-2">Book Request</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Student" asp-action="Index"><i class="bi bi-person fs-2"></i><span class="ps-2">Student</span></a>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="content-area">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+
+        <!-- Fixed Footer -->
+        <footer class="footer bg-dark text-white text-center fixed-bottom">
+            <div class="container">
+                &copy; 2025 - Library Management System
+            </div>
+        </footer>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
