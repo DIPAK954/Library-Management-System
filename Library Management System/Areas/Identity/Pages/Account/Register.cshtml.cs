@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Library_Management_System.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -98,6 +99,29 @@ namespace Library_Management_System.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(ErrorMessage ="Full Name is required.")]
+            [StringLength(100, ErrorMessage = "Full Name cannot exceed 100 characters")]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
+
+            [Required(ErrorMessage ="Student's enrollment number is required.")]
+            [Display(Name = "Enrollment Number")]
+            public string Enrollment { get; set; }
+
+            [Required(ErrorMessage ="Student's department name is required.")]
+            [Display(Name = "Department")]
+            public string Department { get; set; }
+
+            [Required(ErrorMessage ="Student's IDCard is required.")]
+            [DataType(DataType.Upload,ErrorMessage ="IDcard must be image format.")]
+            [Display(Name ="IdCard")]
+            public IFormFile IdCard { get; set; }
+
+            [Required(ErrorMessage = "PhoneNumber is required.")]
+            [Display(Name = "PhoneNumber")]
+            [StringLength(10, ErrorMessage = "The legth of PhoneNumber must be 10 digits.", MinimumLength = 10)]
+            public string PhoneNumber { get; set; }
         }
 
 
@@ -114,6 +138,20 @@ namespace Library_Management_System.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.FullName = Input.FullName;
+                user.Enrollment = Input.Enrollment;
+                user.Department = Input.Department;
+                user.PhoneNumber = Input.PhoneNumber;
+
+                // Save uploaded file
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Input.IdCard.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Input.IdCard.CopyToAsync(stream);
+                }
+                user.IdCard = "/uploads/" + fileName;
+
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -121,6 +159,8 @@ namespace Library_Management_System.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "Student");
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
@@ -142,7 +182,7 @@ namespace Library_Management_System.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 foreach (var error in result.Errors)

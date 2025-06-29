@@ -52,6 +52,13 @@
             height: 56px;
             line-height: 56px;
         }
+
+        .logo-img {
+            height: 50px;
+            width: 50px;
+            object-fit: contain;
+        }
+
     </style>
 </head>
 <body>
@@ -59,7 +66,7 @@
         <!-- Fixed Navbar -->
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Library</a>
+                <a class="navbar-brand text-white d-flex align-items-center" asp-controller="Home" asp-action="Index"><img src="~/library-logo.png" class="logo-img" />Library App</a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
                     <ul class="navbar-nav">
                         <partial name="_LoginPartial" />
