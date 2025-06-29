@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\library.DataModel\library.DataModel.csproj" />
+	<ProjectReference Include="..\Library.Common\Library.Common.csproj" />
+	<ProjectReference Include="..\Library.Service\Library.Service.csproj" />
   </ItemGroup>
 
 </Project>
