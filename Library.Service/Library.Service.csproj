@@ -24,7 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Library.Common\Library.Common.csproj" />
     <ProjectReference Include="..\library.DataModel\library.DataModel.csproj" />
-    <ProjectReference Include="..\Library.Manager\Library.Manager.csproj" />
   </ItemGroup>
 
 </Project>

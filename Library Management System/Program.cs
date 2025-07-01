@@ -1,11 +1,15 @@
 using library.DataModel;
 using library.DataModel.Models;
+using Library.Manager.Interface;
+using Library.Manager.Implement;
 using Library_Management_System.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Library.Service.Implement;
+using Library.Service.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +24,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<IEmailSender,EmailSender>();
+builder.Services.AddScoped<IBookManager, BookManager>();
+builder.Services.AddScoped<IBookService,BookService>();
 
 builder.Services.AddRazorPages();
 
