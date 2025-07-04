@@ -30,8 +30,7 @@ namespace Library.Common.Models
         public string Publisher { get; set; }
         [Required]
         public IFormFile CoverImageUrl { get; set; }
-        [Required]
-        public string CoverImagePath { get; set; }
+        public string? CoverImagePath { get; set; }
         [Required]
         public int TotalCopies { get; set; }
         [Required]
