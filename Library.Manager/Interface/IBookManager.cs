@@ -12,5 +12,7 @@ namespace Library.Manager.Interface
         public Guid AddBook(BookModel bookModel);
 
         public BookModel GetBookById(Guid id);
+
+        public List<BookModel> GetAllBooks();
     }
 }

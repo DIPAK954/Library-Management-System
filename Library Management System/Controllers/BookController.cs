@@ -21,6 +21,13 @@ namespace Library_Management_System.Controllers
         }
 
         [HttpGet]
+        public IActionResult AllBooks()
+        {
+            var books = _bookManager.GetAllBooks();
+            return Json(new { data = books });
+        }
+
+        [HttpGet]
         public IActionResult Create(Guid? Id)
         {
             if (Id == null)

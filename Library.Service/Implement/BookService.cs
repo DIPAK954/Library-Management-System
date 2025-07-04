@@ -52,6 +52,29 @@ namespace Library.Service.Implement
             return book.Id;
         }
 
+        public List<BookModel> GetAllBooks()
+        {
+            
+            var books = _context.Books.Select(x => new BookModel
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Author = x.Author,
+                ISBN = x.ISBN,
+                PublishedDate = x.PublishedDate,
+                Genre = x.Genre,
+                Description = x.Description,
+                Language = x.Language,
+                Publisher = x.Publisher,
+                TotalCopies = x.TotalCopies,
+                AvailableCopy = x.AvailableCopy,
+                Status = (int)(BookStatus)x.status,
+                CoverImagePath = x.CoverImageUrl
+            }).ToList();
+
+            return books;
+        }
+
         public BookModel GetBookById(Guid id)
         {
             if(id == Guid.Empty)

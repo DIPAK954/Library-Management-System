@@ -21,6 +21,11 @@ namespace Library.Manager.Implement
             return _bookService.AddBook(bookModel);
         }
 
+        public List<BookModel> GetAllBooks()
+        {
+            return _bookService.GetAllBooks();
+        }
+
         public BookModel GetBookById(Guid id)
         {
             return _bookService.GetBookById(id);

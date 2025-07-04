@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Library.Common.Models.BookModel>
 
 @{
     ViewData["ActivePage"] = "Books";
@@ -9,3 +9,30 @@
     <h2 class="mb-0">Books</h2>
     <a href="@Url.Action("Create", "Book")" class="btn btn-primary">Add New Book</a>
 </div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table id="bookTable">
+            <thead>
+                <tr>
+                    <th>CoverImage</th>
+                    <th>Title</th>
+                    <th>ISBN</th>
+                    <th>Genre</th>
+                    <th>Language</th>
+                    <th>Author</th>
+                    <th>Total Copies</th>
+                    <th>Available Copies</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/bookslist.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -31,6 +31,8 @@ namespace Library.Common.Models
         [Required]
         public IFormFile CoverImageUrl { get; set; }
         [Required]
+        public string CoverImagePath { get; set; }
+        [Required]
         public int TotalCopies { get; set; }
         [Required]
         public int AvailableCopy { get; set; }
