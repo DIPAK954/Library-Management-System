@@ -22,11 +22,6 @@ namespace Library.Service.Implement
 
         public Guid AddBook(BookModel bookModel)
         {
-            if (bookModel == null)
-            {
-                throw new ArgumentNullException(nameof(bookModel), "Book model cannot be null");
-            }
-
             Book book = new Book();
 
             book.Id = bookModel.Id == Guid.Empty ? Guid.NewGuid() : bookModel.Id;
@@ -40,7 +35,7 @@ namespace Library.Service.Implement
             book.Publisher = bookModel.Publisher;
             book.TotalCopies = bookModel.TotalCopies;
             book.AvailableCopy = bookModel.AvailableCopy;
-            book.status = (int)BookStatus.Available;
+            book.status = (bookModel.Status == 0) ? (int)BookStatus.Available : (int)BookStatus.Archived;
             book.CreatedAt = DateTime.UtcNow;
             // Save uploaded file
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(bookModel.CoverImageUrl.FileName);
@@ -83,6 +78,7 @@ namespace Library.Service.Implement
                 TotalCopies = book.TotalCopies,
                 AvailableCopy = book.AvailableCopy,
                 Status = (int)(BookStatus)book.status
+                
             };
         }
     }
