@@ -5,26 +5,26 @@
     Layout = "_Layout";
 }
 
-<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
     <h2 class="mb-0">Books</h2>
-    <a href="@Url.Action("Create", "Book")" class="btn btn-primary">Add New Book</a>
+    <a href="@Url.Action("Create", "Book")" class="btn btn-primary"><i class="bi bi-plus-lg"></i> New Book</a>
 </div>
 
 <div class="card shadow">
     <div class="card-body">
-        <table id="bookTable">
+        <table id="bookTable" class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>CoverImage</th>
-                    <th>Title</th>
-                    <th>ISBN</th>
-                    <th>Genre</th>
-                    <th>Language</th>
-                    <th>Author</th>
-                    <th>Total Copies</th>
-                    <th>Available Copies</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th style="width: 10%;">Cover Image</th>
+                    <th style="width: 10%;">Title</th>
+                    <th style="width: 10%;">ISBN</th>
+                    <th style="width: 10%;">Genre</th>
+                    <th style="width: 10%;">Language</th>
+                    <th style="width: 10%;">Author</th>
+                    <th style="width: 10%;">Total Copies</th>
+                    <th style="width: 10%;">Available Copies</th>
+                    <th style="width: 10%;">Status</th>
+                    <th style="width: 10%;">Actions</th>
                 </tr>
         </table>
     </div>

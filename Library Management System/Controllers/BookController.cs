@@ -49,6 +49,7 @@ namespace Library_Management_System.Controllers
             }
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult AddUpdateBook(BookModel bookModel)
         {
@@ -87,6 +88,31 @@ namespace Library_Management_System.Controllers
             {
                 return Json(new { success = false, message = $"Error: {ex.Message}" });
             }
-        }   
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteBook(Guid id)
+        {
+            bool result = false;
+            try
+            {
+                var book = _bookManager.GetBookById(id);
+                if (book == null)
+                {
+                    return Json(new { success = false, message = "Book not found." });
+                }
+
+                result = _bookManager.DeletBook(id);
+                if (result==false)
+                {
+                    return Json(new { success = false, message = "Failed to delete book." });
+                }
+                return Json(new { success = true, message = "Book deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Error: {ex.Message}" });
+            }
+        }
     }
 }

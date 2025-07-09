@@ -3,10 +3,10 @@
     Layout = "_Layout";
 }
 
-<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
     <h2 class="mb-0">@ViewData["Title"]</h2>
     <a href="@Url.Action("Index", "Book")" class="btn btn-secondary">
-        <i class="bi bi-arrow-left-circle me-1"></i> Back To List
+        <i class="bi bi-arrow-left"></i> Back To List
     </a>
 
 </div>
@@ -103,8 +103,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/AddBookForm.js"></script>
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script src="~/js/addbookform.js"></script>
 }

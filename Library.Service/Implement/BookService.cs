@@ -52,6 +52,25 @@ namespace Library.Service.Implement
             return book.Id;
         }
 
+        public bool DeletBook(Guid Id)
+        {
+            try
+            {
+                var book = _context.Books.FirstOrDefault(b => b.Id == Id);
+                if (book == null)
+                {
+                    throw new KeyNotFoundException($"Book with ID {Id} not found.");
+                }
+                _context.Books.Remove(book);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public List<BookModel> GetAllBooks()
         {
             

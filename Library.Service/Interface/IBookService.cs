@@ -14,5 +14,7 @@ namespace Library.Service.Interface
         public BookModel GetBookById(Guid id);
 
         public List<BookModel> GetAllBooks();
+
+        public bool DeletBook(Guid Id);
     }
 }

@@ -21,6 +21,11 @@ namespace Library.Manager.Implement
             return _bookService.AddBook(bookModel);
         }
 
+        public bool DeletBook(Guid Id)
+        {
+            return _bookService.DeletBook(Id);
+        }
+
         public List<BookModel> GetAllBooks()
         {
             return _bookService.GetAllBooks();
