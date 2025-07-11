@@ -16,7 +16,12 @@
         <form id="AddEditBookForm" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div class="row g-3">
-                @* <input asp-for="Id" type="hidden" /> *@
+                @if (Model.Id != null && Model.Id != Guid.Empty)
+                {
+                    <input asp-for="Id" type="hidden" />
+                }
+
+
                 <div class="col-md-6">
                     <label asp-for="Title" class="form-label"></label>
                     <input asp-for="Title" class="form-control" />

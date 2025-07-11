@@ -26,6 +26,11 @@ namespace Library.Manager.Implement
             return _bookService.DeletBook(Id);
         }
 
+        public Guid EditBook(BookModel bookModel)
+        {
+            return _bookService.EditBook(bookModel);
+        }
+
         public List<BookModel> GetAllBooks()
         {
             return _bookService.GetAllBooks();

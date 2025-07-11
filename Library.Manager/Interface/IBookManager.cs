@@ -16,5 +16,7 @@ namespace Library.Manager.Interface
         public List<BookModel> GetAllBooks();
 
         public bool DeletBook(Guid Id);
+
+        public Guid EditBook(BookModel bookModel);
     }
 }

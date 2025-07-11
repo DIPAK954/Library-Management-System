@@ -71,6 +71,49 @@ namespace Library.Service.Implement
             }
         }
 
+        public Guid EditBook(BookModel bookModel)
+        {
+            try
+            {
+                var book = _context.Books.FirstOrDefault(b => b.Id == bookModel.Id);
+                if (book == null)
+                {
+                    throw new KeyNotFoundException($"Book with ID {bookModel.Id} not found.");
+                }
+
+                book.Id = bookModel.Id;
+                book.Title = bookModel.Title;
+                book.Author = bookModel.Author;
+                book.ISBN = bookModel.ISBN;
+                book.PublishedDate = bookModel.PublishedDate;
+                book.Genre = bookModel.Genre;
+                book.Description = bookModel.Description;
+                book.Language = bookModel.Language;
+                book.Publisher = bookModel.Publisher;
+                book.TotalCopies = bookModel.TotalCopies;
+                book.AvailableCopy = bookModel.AvailableCopy;
+                book.status = (bookModel.Status == 0) ? (int)BookStatus.Available : (int)BookStatus.Archived;
+                book.CreatedAt = DateTime.UtcNow;
+                // Save uploaded file
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(bookModel.CoverImageUrl.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "BooksImg", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    bookModel.CoverImageUrl.CopyToAsync(stream);
+                }
+                book.CoverImageUrl = "/BooksImg/" + fileName;
+
+                _context.Books.Update(book);
+                _context.SaveChanges();
+                return book.Id;
+
+            }
+            catch (Exception ex) 
+            {
+                return Guid.Empty;
+            }
+        }
+
         public List<BookModel> GetAllBooks()
         {
             

@@ -34,7 +34,9 @@ namespace Library_Management_System.Controllers
             {
                 ViewData["Title"] = "New Book";
 
-                return View();
+                BookModel bookModel = new BookModel();
+
+                return View(bookModel);
             }
             else
             {
@@ -68,7 +70,11 @@ namespace Library_Management_System.Controllers
             {
                 if (bookModel.Id == Guid.Empty)
                 {
-                    _bookManager.AddBook(bookModel);    
+                    var book = _bookManager.AddBook(bookModel);
+                    if (book == Guid.Empty)
+                    {
+                        return Json(new { success = false, message = "Failed to add book." });
+                    }
                     return Json(new { success = true, message = "Book added successfully." });
                 }
                 else
@@ -80,7 +86,11 @@ namespace Library_Management_System.Controllers
                     }
                     // Update logic here if needed
                     // For now, we assume AddBook handles both add and update
-                    _bookManager.AddBook(bookModel);
+                    var editBook = _bookManager.EditBook(bookModel);
+                    if (editBook == Guid.Empty)
+                    {
+                        return Json(new { success = false, message = "Failed to update book." });
+                    }
                     return Json(new { success = true, message = "Book updated successfully." });
                 }
             }
