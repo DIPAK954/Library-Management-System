@@ -18,5 +18,6 @@ namespace Library.Service.Interface
         public bool DeletBook(Guid Id);
 
         public Guid EditBook(BookModel bookModel);
+        public Guid ToggleBookStatus(Guid id);
     }
 }

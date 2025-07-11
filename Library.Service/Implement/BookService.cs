@@ -52,6 +52,29 @@ namespace Library.Service.Implement
             return book.Id;
         }
 
+        public Guid ToggleBookStatus(Guid id)
+        {
+            try
+            {
+                var book = _context.Books.FirstOrDefault(b => b.Id == id);
+                if (book == null)
+                {
+                    throw new KeyNotFoundException($"Book with ID {id} not found.");
+                }
+
+                book.status = (book.status == (int)BookStatus.Available) ? (int)BookStatus.Archived : (int)BookStatus.Available;
+                book.UpdatedAt = DateTime.UtcNow;
+                
+                _context.Books.Update(book);
+                _context.SaveChanges();
+                return book.Id;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("An error occurred while toggling book status.", ex);
+            }
+        }
+
         public bool DeletBook(Guid Id)
         {
             try
@@ -93,7 +116,7 @@ namespace Library.Service.Implement
                 book.TotalCopies = bookModel.TotalCopies;
                 book.AvailableCopy = bookModel.AvailableCopy;
                 book.status = (bookModel.Status == 0) ? (int)BookStatus.Available : (int)BookStatus.Archived;
-                book.CreatedAt = DateTime.UtcNow;
+                book.UpdatedAt = DateTime.UtcNow;
                 // Save uploaded file
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(bookModel.CoverImageUrl.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "BooksImg", fileName);
@@ -162,8 +185,9 @@ namespace Library.Service.Implement
                 Publisher = book.Publisher,
                 TotalCopies = book.TotalCopies,
                 AvailableCopy = book.AvailableCopy,
-                Status = (int)(BookStatus)book.status
-                
+                Status = (int)(BookStatus)book.status,
+                CoverImagePath = book.CoverImageUrl
+               
             };
         }
     }

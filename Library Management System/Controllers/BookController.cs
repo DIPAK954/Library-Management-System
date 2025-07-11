@@ -124,5 +124,51 @@ namespace Library_Management_System.Controllers
                 return Json(new { success = false, message = $"Error: {ex.Message}" });
             }
         }
+
+        [HttpGet]
+        public IActionResult Details(Guid Id) 
+        {
+            try
+            {
+                var book = _bookManager.GetBookById(Id);
+                if (book == null)
+                {
+                    return Json(new { success = false, message = "Book not found." });
+                }
+                else {
+                    return View(book);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Error: {ex.Message}" });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult BookStatus(Guid Id)
+        {
+
+            try
+            {
+                var book = _bookManager.GetBookById(Id);
+                if (book == null)
+                {
+                    return Json(new { success = false, message = "Book not found." });
+                }
+                // Toggle the status
+     
+                var updatedBookId = _bookManager.ToggleBookStatus(book.Id);
+                if (updatedBookId == Guid.Empty)
+                {
+                    return Json(new { success = false, message = $"Failed to update status of {book.Title}. Please try again." });
+                }
+                return Json(new { success = true, message = $"{book.Title} book status updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"Error: {ex.Message}" });
+            }
+        }
     }
 }

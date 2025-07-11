@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     $('#bookTable').DataTable({
         "responsive": true,
         "ajax": {
@@ -23,8 +24,10 @@
             { "data": "availableCopy" },
             {
                 "data": "status",
-                render: function (data) {
-                    return data == 0 ? '<span class="badge text-bg-success">Available</span>' : '<span class="badge text-bg-danger">Archieve</span>'
+                render: function (data, type, row) {
+                    const statusText = data == 0 ? 'Available' : 'Unavailable';
+                    const badgeClass = data == 0 ? 'text-bg-success' : 'text-bg-danger';
+                    return `<span class="badge ${badgeClass}" style="cursor:pointer;" onclick="toggleStatus('${row.id}', '${row.title}')">${statusText}</span>`;
                 }
             },
             {
@@ -69,6 +72,35 @@ function deleteBook(id, title) {
                         `Failed to delete ${title}. Please try again later.`,
                         'error'
                     )
+                }
+            });
+        }
+    })
+}
+function toggleStatus(id, title) {
+    Swal.fire({
+        title: 'Are you sure ?',
+        text: `You want to update ${title} book status`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/Book/BookStatus/${id}`,
+                type: 'POST',
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                    $('#bookTable').DataTable().ajax.reload();
+                },
+                error: function (xhr, status, error) {
+                    toastr.error(`${error} to updating status of ${title}. Please try again later.`);
                 }
             });
         }

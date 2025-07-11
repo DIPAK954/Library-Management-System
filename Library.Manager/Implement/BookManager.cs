@@ -40,5 +40,10 @@ namespace Library.Manager.Implement
         {
             return _bookService.GetBookById(id);
         }
+
+        public Guid ToggleBookStatus(Guid id)
+        {
+            return _bookService.ToggleBookStatus(id);
+        }
     }
 }
