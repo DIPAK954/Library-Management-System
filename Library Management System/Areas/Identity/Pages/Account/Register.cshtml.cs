@@ -142,6 +142,7 @@ namespace Library_Management_System.Areas.Identity.Pages.Account
                 user.Enrollment = Input.Enrollment;
                 user.Department = Input.Department;
                 user.PhoneNumber = Input.PhoneNumber;
+                user.CreatedAt = DateTime.UtcNow;
 
                 // Save uploaded file
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Input.IdCard.FileName);

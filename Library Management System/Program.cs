@@ -26,6 +26,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 builder.Services.AddTransient<IEmailSender,EmailSender>();
 builder.Services.AddScoped<IBookManager, BookManager>();
 builder.Services.AddScoped<IBookService,BookService>();
+builder.Services.AddScoped<IStudentManager, StudentManager>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 builder.Services.AddRazorPages();
 

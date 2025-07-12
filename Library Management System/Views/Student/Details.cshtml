@@ -1,0 +1,92 @@
+﻿@model Library.Common.Models.StudentDetailsModel
+
+@{
+    ViewData["Title"] = "Student Details";
+    Layout = "_Layout";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+    <a href="@Url.Action("Index", "Student")" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back To List
+    </a>
+</div>
+
+<div class="card shadow">
+    <div class="card-body p-4">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <strong class="text-muted">Full Name</strong>
+                <div>@Model.FullName</div>
+            </div>
+
+            <div class="col-md-6">
+                <strong class="text-muted">Email</strong>
+                <div>@Model.Email</div>
+            </div>
+
+            <div class="col-md-6">
+                <strong class="text-muted">Phone Number</strong>
+                <div>@Model.PhoneNumber</div>
+            </div>
+
+            <div class="col-md-6">
+                <strong class="text-muted">Enrollment No.</strong>
+                <div>@Model.Enrollment</div>
+            </div>
+
+            <div class="col-md-6">
+                <strong class="text-muted">Department</strong>
+                <div>@Model.Department</div>
+            </div>
+
+            <div class="col-md-6">
+                <strong class="text-muted">ID Card</strong>
+                <div>
+                    @if (!string.IsNullOrEmpty(Model.IdCard))
+                    {
+                        <img src="@Url.Content($"~{Model.IdCard}")" class="img-fluid rounded border" style="max-height: 120px;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Not Uploaded</span>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <strong class="text-muted">Books Borrowed</strong>
+                <div class="badge bg-primary">@Model.TotalBooksBorrow</div>
+            </div>
+
+            <div class="col-md-4">
+                <strong class="text-muted">Books Not Returned</strong>
+                <div class="badge bg-warning">@Model.NotReturnBooks</div>
+            </div>
+
+            <div class="col-md-4">
+                <strong class="text-muted">Total Fine</strong>
+                <div class="badge bg-danger">₹ @Model.TotalFine</div>
+            </div>
+
+            <div class="col-md-6">
+                <strong class="text-muted">Created At</strong>
+                <div>@Model.CreatedAt.ToString("dd MMM yyyy hh:mm tt")</div>
+            </div>
+
+            <div class="col-md-6">
+                <strong class="text-muted">Last Updated</strong>
+                <div>
+                    @if (Model.UpdatedAt == Model.CreatedAt)
+                    {
+                        <span class="text-muted">Not Updated</span>
+                    }
+                    else
+                    {
+                        @Model.UpdatedAt.ToString("dd MMM yyyy hh:mm tt")
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
