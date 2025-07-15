@@ -190,5 +190,23 @@ namespace Library.Service.Implement
                
             };
         }
+
+        public List<BookModel> SearchBooks(string searchTerm)
+        {
+            var books = GetAllBooks();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                books = books.Where(x=>
+                x.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || x.ISBN.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || x.Author.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || x.Genre.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || x.Publisher.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || x.Language.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+            }
+            return books;
+        }
     }
 }

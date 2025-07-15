@@ -41,6 +41,11 @@ namespace Library.Manager.Implement
             return _bookService.GetBookById(id);
         }
 
+        public List<BookModel> SearchBooks(string searchTerm)
+        {
+            return _bookService.SearchBooks(searchTerm);
+        }
+
         public Guid ToggleBookStatus(Guid id)
         {
             return _bookService.ToggleBookStatus(id);

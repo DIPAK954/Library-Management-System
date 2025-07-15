@@ -1,3 +1,23 @@
-﻿@{
-    Layout = "_Layout";
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using library.DataModel.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    string layout = "_Layout"; // Default layout
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        if (User.IsInRole("Admin"))
+        {
+            layout = "_Layout";
+        }
+        else if (User.IsInRole("Student"))
+        {
+            layout = "_StudentLayout";
+        }
+    }
+
+    Layout = layout;
 }

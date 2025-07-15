@@ -4,13 +4,47 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Library_Management_System</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="icon" type="image/png" href="~/favicon.png">
+    <!-- Site & App Styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Library_Management_System.styles.css" asp-append-version="true" />
-    <link href="~/lib/datatables.net-dt/css/datatables.datatables.min.css" rel="stylesheet" />
-    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
-     <style>
+
+    <!-- Bootstrap 5 (CSS) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- DataTables Bootstrap 5 CSS -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap Bundle JS (with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- jQuery Validation -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/dist/jquery.validate.unobtrusive.min.js"></script>
+
+ *@    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- CSS (optional, for animations/themes) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <style>
         html, body {
             height: 100%;
             margin: 0;
@@ -59,6 +93,43 @@
             object-fit: contain;
         }
 
+        .toast {
+            opacity: 1 !important;
+            background-color: #333 !important; /* or any solid color you prefer */
+            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+            .toast.show {
+                opacity: 1 !important;
+            }
+
+        .toast-message {
+            color: #fff !important;
+        }
+
+        /* Optional: override type-specific colors */
+        .toast-success {
+            background-color: #28a745 !important;
+        }
+
+        .toast-error {
+            background-color: #dc3545 !important;
+        }
+
+        .toast-info {
+            background-color: #17a2b8 !important;
+        }
+
+        .toast-warning {
+            background-color: #ffc107 !important;
+            color: #000 !important;
+        }
+
+        /* Remove any fade effect */
+        .toast.fade {
+            transition: none !important;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +137,9 @@
         <!-- Fixed Navbar -->
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand text-white d-flex align-items-center" asp-controller="Home" asp-action="Index"><img src="~/library-logo.png" class="logo-img" />Library App</a>
+                <a class="navbar-brand text-white d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <img src="~/library-logo.png" class="logo-img" />Library App
+                </a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
                     <ul class="navbar-nav">
                         <partial name="_LoginPartial" />
@@ -80,19 +153,29 @@
             <aside class="sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Home" asp-action="Index"><i class="bi bi-speedometer2 fs-2"></i><span class="ps-2">Dashboard</span></a>
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-speedometer2 fs-2"></i><span class="ps-2">Dashboard</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Books" asp-action="Index"><i class="bi bi-book fs-2"></i><span class="ps-2">Book</span></a>
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="BrowseBooks" asp-action="Index">
+                            <i class="bi bi-book-half fs-2"></i><span class="ps-2">Browse Books</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Issue" asp-action="Index"><i class="bi bi-send fs-2"></i><span class="ps-2">Issue Book</span></a>
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Issue" asp-action="MyBooks">
+                            <i class="bi bi-journal-check fs-2"></i><span class="ps-2">My Books</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Request" asp-action="Index"><i class="bi bi bi-journal-plus fs-2"></i><span class="ps-2">Book Request</span></a>
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Request" asp-action="Create">
+                            <i class="bi bi-journal-plus fs-2"></i><span class="ps-2">Request Book</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Student" asp-action="Index"><i class="bi bi-person fs-2"></i><span class="ps-2">Student</span></a>
+                        <a class="nav-link text-white d-flex align-items-center" asp-controller="Fine" asp-action="MyFines">
+                            <i class="bi bi-currency-rupee fs-2"></i><span class="ps-2">My Fines</span>
+                        </a>
                     </li>
                 </ul>
             </aside>
@@ -110,12 +193,8 @@
             </div>
         </footer>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/lib/datatables.net-dt/js/datatables.datatables.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

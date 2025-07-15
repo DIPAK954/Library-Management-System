@@ -19,5 +19,6 @@ namespace Library.Service.Interface
 
         public Guid EditBook(BookModel bookModel);
         public Guid ToggleBookStatus(Guid id);
+        public List<BookModel> SearchBooks(string searchTerm);
     }
 }
