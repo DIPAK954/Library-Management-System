@@ -28,6 +28,8 @@ builder.Services.AddScoped<IBookManager, BookManager>();
 builder.Services.AddScoped<IBookService,BookService>();
 builder.Services.AddScoped<IStudentManager, StudentManager>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IBookRequestManager, BookRequestManager>();
+builder.Services.AddScoped<IBookRequestService, BookRequestService>();
 
 builder.Services.AddRazorPages();
 

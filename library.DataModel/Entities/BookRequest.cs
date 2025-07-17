@@ -19,7 +19,6 @@ namespace library.DataModel.Models
         public Guid BookId { get; set; }
         [Required]
         public DateTime RequestDate { get; set; }
-        [Required]
         public DateTime? ApprovalDate { get; set; }
         public int Status { get; set; }
     }
