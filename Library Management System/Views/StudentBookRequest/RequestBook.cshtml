@@ -32,9 +32,13 @@
                     <p class="mb-2"><strong>ISBN:</strong> @Model.ISBN</p>
                     <p class="mb-2"><strong>Publisher:</strong> @Model.Publisher</p>
                     <p class="mb-3"><strong>Published Date:</strong> @Model.PublishedDate.ToString("dd MMM yyyy")</p>
-           
                     <p class="mb-4">@Model.Description</p>
-
+                    <p class="mb-4">
+                        <strong>Library Policy:</strong>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#Policy">
+                            Click here before requesting book
+                        </a>
+                    </p>
                     @if (Model.AvailableCopy > 0 && Model.Status == 0)
                     {
                         <button type="button" class="btn btn-success" onclick="requestBook('@Model.Id')">
@@ -50,6 +54,29 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="modal fade" id="Policy">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h3 class="modal-title">Book Request Policy</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="text-danger">
+                    <li>Only registered students can request books.</li>
+                    <li>Each student can request or borrowed a maximum of 3 books at a time.</li>
+                    <li>Books can be requested for a maximum of 14 days.</li>
+                    <li>Late returns will incursa fine of ₹10 per day.</li>
+                    <li>Lost or damaged books must be replaced or paid for.</li>
+                    <li>Ensure to return the book in good condition.</li>
+                    <li>Contact the library for any issues or concerns.</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 

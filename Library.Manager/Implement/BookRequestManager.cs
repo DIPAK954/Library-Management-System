@@ -1,4 +1,5 @@
-﻿using Library.Manager.Interface;
+﻿using Library.Common.Models;
+using Library.Manager.Interface;
 using Library.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,20 @@ namespace Library.Manager.Implement
         {
             _bookRequestService = bookRequestService;
         }
+
+        public List<BookRequestModel> GetAllBookRequest()
+        {
+            return _bookRequestService.GetAllBookRequest();
+        }
+
         public bool RequestBook(Guid bookId, string studentId)
         {
             return _bookRequestService.RequestBook(bookId, studentId);
+        }
+
+        public bool UpdateStatus(Guid id, string status)
+        {
+            return _bookRequestService.UpdateStatus(id, status);
         }
     }
 }

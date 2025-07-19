@@ -1,7 +1,9 @@
 ﻿using library.DataModel;
 using library.DataModel.Models;
 using Library.Common;
+using Library.Common.Models;
 using Library.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,26 @@ namespace Library.Service.Implement
         {
             _context = context;
         }
+
+        public List<BookRequestModel> GetAllBookRequest()
+        {
+            var bookRequests = _context.BookRequests.Include(x=>x.Student).Include(x => x.Book)
+                .Where(br => br.Status == (int)BookRequestStatus.Pending)
+                .Select(br => new BookRequestModel
+                {
+                    Id = br.Id,
+                    StudentName = br.Student != null ? br.Student.FullName : "Unknown Student",
+                    BookTitle = br.Book.Title,
+                    ISBN = br.Book.ISBN,
+                    RequestDate = br.RequestDate,
+                    ApprovalDate = br.ApprovalDate,
+                    Status = br.Status,
+                    Actions = string.Empty // Placeholder for actions, can be filled later
+                }).ToList();
+
+            return bookRequests;
+        }
+
         public bool RequestBook(Guid bookId, string studentId)
         {
             try
@@ -50,7 +72,6 @@ namespace Library.Service.Implement
                 };
 
                 _context.BookRequests.Add(bookRequest);
-                book.AvailableCopy -= 1; // Decrease the available copy count
                 _context.SaveChanges(); // Save changes to the database
                 return true; // Request successful
             }
@@ -58,6 +79,44 @@ namespace Library.Service.Implement
             {
                 // Log the exception (not implemented here)
                 return false;
+            }
+        }
+
+        public bool UpdateStatus(Guid id, string status)
+        {
+            var request = _context.BookRequests.FirstOrDefault(br => br.Id == id);
+            if (request == null)
+            {
+                return false; // Request not found
+            }
+            try
+            {
+                if (status == "1")
+                {
+                    request.Status = (int)BookRequestStatus.Approved;
+                    request.ApprovalDate = DateTime.Now;
+                    // Update the book's available copies
+                    var book = _context.Books.FirstOrDefault(b => b.Id == request.BookId);
+                    if (book != null)
+                    {
+                        book.AvailableCopy -= 1; // Decrease the available copy count
+                    }
+                }
+                else if (status == "2")
+                {
+                    request.Status = (int)BookRequestStatus.Rejected;
+                }
+                else
+                {
+                    return false; // Invalid status
+                }
+                _context.SaveChanges(); // Save changes to the database
+                return true; // Status updated successfully
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not implemented here)
+                return false; // Failed to update status
             }
         }
     }
