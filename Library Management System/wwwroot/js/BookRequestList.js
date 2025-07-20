@@ -20,6 +20,12 @@
                     if (data === 0) { // Pending
                         statusText = 'Pending';
                         badgeClass = 'text-bg-warning';
+                    } else if (data === 1) { // Approved
+                        statusText = 'Approved';
+                        badgeClass = 'text-bg-success';
+                    } else if (data === 2) { // Rejected
+                        statusText = 'Rejected';
+                        badgeClass = 'text-bg-danger';
                     } else if (data === 3) { // Cancelled
                         statusText = 'Cancelled';
                         badgeClass = 'text-bg-secondary';

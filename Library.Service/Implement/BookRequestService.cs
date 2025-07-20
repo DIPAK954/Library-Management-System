@@ -23,7 +23,7 @@ namespace Library.Service.Implement
         public List<BookRequestModel> GetAllBookRequest()
         {
             var bookRequests = _context.BookRequests.Include(x=>x.Student).Include(x => x.Book)
-                .Where(br => br.Status == (int)BookRequestStatus.Pending)
+                .Where(br => br.Status != (int)BookRequestStatus.Approved)
                 .Select(br => new BookRequestModel
                 {
                     Id = br.Id,
@@ -101,6 +101,22 @@ namespace Library.Service.Implement
                     {
                         book.AvailableCopy -= 1; // Decrease the available copy count
                     }
+
+                    // Book is now issued, so we can create an IssuedBooks record
+
+                    IssuedBooks issuedBook = new IssuedBooks
+                    {
+                        Id = Guid.NewGuid(),
+                        BookId = request.BookId,
+                        StudentId = request.StudentId,
+                        IssueDate = DateTime.Now,
+                        DueDate = DateTime.Now.AddDays(30), // Assuming a 30-day loan period
+                        ReturnDate = null, // Not returned yet
+                        IsReturned = false,
+                        CreatedAt = DateTime.Now
+                    };
+
+                    _context.IssuedBooks.Add(issuedBook);
                 }
                 else if (status == "2")
                 {
