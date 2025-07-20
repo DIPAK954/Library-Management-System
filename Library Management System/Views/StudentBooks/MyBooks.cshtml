@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Library.Common.Models.MyBookModel>
+
+@{
+    ViewData["Title"] = "My Books";
+    Layout = "_StudentLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+    <form class="d-flex" role="search" action="BrowseBooks/SearchBook" method="get">
+        <input name="search" class="form-control me-2" type="search" placeholder="Search Book..." aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit"><i class="bi-search"></i></button>
+    </form>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">No books found.</div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @foreach (var book in Model)
+            {
+                <div class="col">
+                    <a href="/StudentBooks/Details/@book.Id" style="text-decoration: none; color: inherit;">
+                        <div class="card h-100 border-0 shadow-sm" style="width: 100%; min-height: 100%;">
+
+                            <div style="height: 220px; background-color: #f7f7f7; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                <img src="@Url.Content(book.CoverImagePath ?? "~/images/default-book.png")"
+                                     alt="@book.Title"
+                                     style="max-height: 100%; width: auto; object-fit: contain;" />
+                            </div>
+
+                            <div class="card-body p-2">
+                                <h6 class="card-title text-truncate" title="@book.Title" style="font-weight: 600;">
+                                    @book.Title
+                                </h6>
+
+                                <p class="text-muted mb-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    by @book.Author
+                                </p>
+                                <span class="badge
+                                    @(book.Status == "Returned" ? "bg-success" :
+                                    book.Status == "Overdue" ? "bg-danger" :
+                                    "bg-warning text-dark")">
+                                    @book.Status
+                                </span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+}

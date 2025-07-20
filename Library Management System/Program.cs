@@ -19,6 +19,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<LibraryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddHostedService<FineUpdateService>();
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<LibraryDbContext>()
     .AddDefaultTokenProviders();
@@ -30,6 +32,8 @@ builder.Services.AddScoped<IStudentManager, StudentManager>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IBookRequestManager, BookRequestManager>();
 builder.Services.AddScoped<IBookRequestService, BookRequestService>();
+builder.Services.AddScoped<IIssuedBookManager, IssuedBookManager>();
+builder.Services.AddScoped<IIssuedBookService, IssuedBookService>();
 
 builder.Services.AddRazorPages();
 
