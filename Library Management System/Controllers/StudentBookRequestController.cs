@@ -11,11 +11,13 @@ namespace Library_Management_System.Controllers
     {
         private readonly IBookManager _bookManager;
         private readonly IBookRequestManager _bookRequestManager;
+        private readonly IIssuedBookManager _issuedBookManager;
 
-        public StudentBookRequestController(IBookManager bookManager, IBookRequestManager bookRequestManager)
+        public StudentBookRequestController(IBookManager bookManager, IBookRequestManager bookRequestManager, IIssuedBookManager issuedBookManager)
         {
             _bookManager = bookManager;
             _bookRequestManager = bookRequestManager;
+            _issuedBookManager = issuedBookManager;
         }
 
         [HttpGet]
@@ -42,6 +44,13 @@ namespace Library_Management_System.Controllers
                 {
                     return Json(new { success = false, message = "Student ID not found." });
                 }
+
+                var issueBookLimit = _issuedBookManager.CheckIssuedBookLimit(studentId);
+                if (!issueBookLimit)
+                {
+                    return Json(new { success = false, message = "You have reached the limit of issued books." });
+                }
+
                 var result = _bookRequestManager.RequestBook(Id, studentId);
                 if (result)
                 {

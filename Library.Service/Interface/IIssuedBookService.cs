@@ -1,4 +1,5 @@
-﻿using Library.Common.Models;
+﻿using library.DataModel.Models;
+using Library.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace Library.Service.Interface
         public IEnumerable<MyBookModel> GetStudentBooks(string studentId);
 
         public MyBookModel GetIssuedBookById(Guid id);
+        public IEnumerable<IssuedBookGridModel> GetAllIssuedBooks();
+        public bool CheckIssuedBookLimit(string studentId);
     }
 }

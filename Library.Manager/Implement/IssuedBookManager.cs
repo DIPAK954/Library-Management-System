@@ -17,6 +17,16 @@ namespace Library.Manager.Implement
             _issuedBookService = issuedBookService;
         }
 
+        public bool CheckIssuedBookLimit(string studentId)
+        {
+            return _issuedBookService.CheckIssuedBookLimit(studentId);
+        }
+
+        public IEnumerable<IssuedBookGridModel> GetAllIssuedBooks()
+        {
+            return _issuedBookService.GetAllIssuedBooks();
+        }
+
         public MyBookModel GetIssuedBookById(Guid id)
         {
             return _issuedBookService.GetIssuedBookById(id);

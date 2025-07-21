@@ -11,5 +11,7 @@ namespace Library.Manager.Interface
     {
         public IEnumerable<MyBookModel> GetStudentBooks(string studentId);
         public MyBookModel GetIssuedBookById(Guid id);
+        public IEnumerable<IssuedBookGridModel> GetAllIssuedBooks();
+        public bool CheckIssuedBookLimit(string studentId);
     }
 }

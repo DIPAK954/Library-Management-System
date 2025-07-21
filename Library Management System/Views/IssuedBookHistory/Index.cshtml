@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Library.Common.Models.IssuedBookGridModel>
+
+@{
+    ViewData["Title"] = "Issued Books";
+    Layout = "_Layout";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+</div>
+
+<div class="card shadow">
+    <div class="card-body p-4">
+        <table id="issueBookList" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Student</th>
+                    <th>Tittle</th>
+                    <th>ISBN</th>
+                    <th>IssueDate</th>
+                    <th>DueDate</th>
+                    <th>ReturnDate</th>
+                    <th>Fine</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/issuebooklist.js"></script>
+}

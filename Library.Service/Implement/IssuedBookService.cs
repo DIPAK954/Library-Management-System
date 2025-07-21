@@ -17,6 +17,36 @@ namespace Library.Service.Implement
             _context = context;
         }
 
+        public bool CheckIssuedBookLimit(string studentId)
+        {
+            var issuedBookCount = _context.IssuedBooks
+                .Count(b => b.StudentId == studentId && b.IsReturned==false);
+            // Assuming the limit is 3 books per student
+            const int bookLimit = 3;
+            return issuedBookCount < bookLimit;
+        }
+
+        public IEnumerable<IssuedBookGridModel> GetAllIssuedBooks()
+        {
+            var issuedBooks = _context.IssuedBooks
+                .Select(b => new IssuedBookGridModel
+                {
+                    Id = b.Id,
+                    StudentName = b.Student.FullName,
+                    BookTittle = b.Book.Title,
+                    ISBN = b.Book.ISBN,
+                    IssueDate = b.IssueDate,
+                    DueDate = b.DueDate,
+                    ReturnDate = b.ReturnDate,
+                    IsReturned = b.IsReturned,
+                    FineAmount = b.FineAmount > 0 ? b.FineAmount :0,
+                    Actions = string.Empty
+                })
+                .ToList();
+
+            return issuedBooks;
+        }
+
         public MyBookModel GetIssuedBookById(Guid id)
         {
             var book = _context.IssuedBooks
