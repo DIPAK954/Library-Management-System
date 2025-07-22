@@ -13,5 +13,6 @@ namespace Library.Manager.Interface
         public MyBookModel GetIssuedBookById(Guid id);
         public IEnumerable<IssuedBookGridModel> GetAllIssuedBooks();
         public bool CheckIssuedBookLimit(string studentId);
+        public bool UpdateReturnDate(Guid id, DateTime returnDate);
     }
 }

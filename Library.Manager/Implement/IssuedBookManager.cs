@@ -36,5 +36,10 @@ namespace Library.Manager.Implement
         {
             return _issuedBookService.GetStudentBooks(studentId);
         }
+
+        public bool UpdateReturnDate(Guid id, DateTime returnDate)
+        {
+            return _issuedBookService.UpdateReturnDate(id, returnDate);
+        }
     }
 }

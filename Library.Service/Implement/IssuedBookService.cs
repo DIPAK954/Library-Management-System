@@ -101,5 +101,20 @@ namespace Library.Service.Implement
 
             return books;
         }
+
+        public bool UpdateReturnDate(Guid id, DateTime returnDate)
+        {
+            var issuedBook = _context.IssuedBooks.FirstOrDefault(b => b.Id == id);
+            if (issuedBook == null)
+            {
+                return false; // Book not found
+            }
+            issuedBook.ReturnDate = returnDate;
+            issuedBook.IsReturned = true;
+            
+            _context.IssuedBooks.Update(issuedBook);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

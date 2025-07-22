@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library_Management_System.Controllers
 {
@@ -35,6 +36,29 @@ namespace Library_Management_System.Controllers
             {
                 // Log the exception (ex) here if needed
                 return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateReturnDate(Guid id,DateTime returnDate)
+        {
+            try
+            {
+                var result = _issuedBookManager.UpdateReturnDate(id, returnDate);
+                if (result)
+                {
+                    return Json(new { success = true, message = "Return date updated successfully." });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Failed to update return date." });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (ex) here if needed
+                return Json(new { data = ex });
             }
         }
     }
