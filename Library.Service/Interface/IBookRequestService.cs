@@ -12,5 +12,7 @@ namespace Library.Service.Interface
         public bool RequestBook(Guid bookId, string studentId);
         public List<BookRequestModel> GetAllBookRequest();
         public bool UpdateStatus(Guid id, string status);
+        public List<BookRequestModel> GetAllBookRequestByStudentId(string studentId);
+        public bool DeleteBookRequestById(Guid id);
     }
 }

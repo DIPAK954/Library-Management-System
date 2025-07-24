@@ -27,6 +27,17 @@ namespace Library_Management_System.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetAllMyBookRequest()
+        {
+            var bookRequests = _bookRequestManager.GetAllBookRequestByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (bookRequests == null || bookRequests.Count == 0)
+            {
+                return Json(new { success = false, message = "No book requests found." });
+            }
+            return Json(new { success = true, data = bookRequests });
+        }
+
+        [HttpGet]
         public IActionResult RequestBook(Guid Id)
         {
             var book = _bookManager.GetBookById(Id);
@@ -59,6 +70,27 @@ namespace Library_Management_System.Controllers
                 else
                 {
                     return Json(new { success = false, message = "Failed to submit book request." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = $"An error occurred: {ex.Message}" });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteBookRequest(Guid Id)
+        {
+            try
+            {
+                var result = _bookRequestManager.DeleteBookRequestById(Id);
+                if (result)
+                {
+                    return Json(new { success = true, message = "Book request deleted successfully." });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Failed to delete book request." });
                 }
             }
             catch (Exception ex)

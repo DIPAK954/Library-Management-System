@@ -17,9 +17,19 @@ namespace Library.Manager.Implement
             _bookRequestService = bookRequestService;
         }
 
+        public bool DeleteBookRequestById(Guid id)
+        {
+            return _bookRequestService.DeleteBookRequestById(id);
+        }
+
         public List<BookRequestModel> GetAllBookRequest()
         {
             return _bookRequestService.GetAllBookRequest();
+        }
+
+        public List<BookRequestModel> GetAllBookRequestByStudentId(string studentId)
+        {
+            return _bookRequestService.GetAllBookRequestByStudentId(studentId);
         }
 
         public bool RequestBook(Guid bookId, string studentId)

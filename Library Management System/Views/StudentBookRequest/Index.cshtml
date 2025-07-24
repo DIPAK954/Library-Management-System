@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Library.Common.Models.BookRequestModel>
+
+@{
+    ViewData["Title"] = "Books Request";
+    Layout = "_StudentLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+</div>
+
+<div class="card shadow">
+    <div class="card-body p-4">
+        <table id="bookRequestByStudentList" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>ISBN</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/bookrequestbystudentlist.js"></script>
+}

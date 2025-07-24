@@ -20,10 +20,41 @@ namespace Library.Service.Implement
             _context = context;
         }
 
+        public bool DeleteBookRequestById(Guid id)
+        {
+            var request = _context.BookRequests.FirstOrDefault(br => br.Id == id);
+            if (request == null)
+            {
+                return false; // Request not found
+            }
+            _context.BookRequests.Remove(request);
+            _context.SaveChanges();
+            return true;
+        }
+
         public List<BookRequestModel> GetAllBookRequest()
         {
             var bookRequests = _context.BookRequests.Include(x=>x.Student).Include(x => x.Book)
                 .Where(br => br.Status != (int)BookRequestStatus.Approved)
+                .Select(br => new BookRequestModel
+                {
+                    Id = br.Id,
+                    StudentName = br.Student != null ? br.Student.FullName : "Unknown Student",
+                    BookTitle = br.Book.Title,
+                    ISBN = br.Book.ISBN,
+                    RequestDate = br.RequestDate,
+                    ApprovalDate = br.ApprovalDate,
+                    Status = br.Status,
+                    Actions = string.Empty // Placeholder for actions, can be filled later
+                }).ToList();
+
+            return bookRequests;
+        }
+
+        public List<BookRequestModel> GetAllBookRequestByStudentId(string studentId)
+        {
+            var bookRequests = _context.BookRequests.Include(x => x.Student).Include(x => x.Book)
+                .Where(br => br.StudentId == studentId && br.Status != (int)BookRequestStatus.Approved)
                 .Select(br => new BookRequestModel
                 {
                     Id = br.Id,
