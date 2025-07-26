@@ -130,6 +130,30 @@
         .toast.fade {
             transition: none !important;
         }
+
+        /* Hover effect */
+        .sidebar .nav-link:hover {
+            background-color: #f8f9fa; /* light background on hover */
+            color: #3c0b2d !important; /* Bootstrap's pink */
+        }
+
+            .sidebar .nav-link:hover i,
+            .sidebar .nav-link:hover span {
+                color: #3c0b2d !important;
+            }
+
+        /* Active link */
+        .sidebar .nav-link.active {
+            background-color: #fff;
+            color: #3c0b2d !important;
+            font-weight: bold;
+            border-radius: 0 !important;
+        }
+
+            .sidebar .nav-link.active i,
+            .sidebar .nav-link.active span {
+                color: #3c0b2d !important;
+            }
     </style>
 </head>
 <body>
