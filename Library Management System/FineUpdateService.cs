@@ -26,6 +26,10 @@ public class FineUpdateService : BackgroundService
                 {
                     int overdueDays = (DateTime.Now.Date - book.DueDate.Date).Days;
                     book.FineAmount = overdueDays * 10;
+                    if (book.FineAmount > 0)
+                    {
+                        book.IsFinePaid = false; // Mark as unpaid if fine is applicable
+                    }
                 }
 
                 await _context.SaveChangesAsync();

@@ -26,6 +26,8 @@ namespace library.DataModel.Models
         [Required]
         public bool IsReturned { get; set; } = false;
         public decimal? FineAmount { get; set; }
+        public bool? IsFinePaid { get; set; }
+        public int? FineType { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }
 
