@@ -1,4 +1,5 @@
 ﻿using library.DataModel;
+using Library.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class FineUpdateService : BackgroundService
@@ -24,6 +25,10 @@ public class FineUpdateService : BackgroundService
 
                 foreach (var book in issuedBooks)
                 {
+                    // Skip if book is already marked paid for LateReturn or LostBook
+                    if (book.FineType == (int)FineType.LateReturn || book.FineType == (int)FineType.LostBook)
+                        continue;
+
                     int overdueDays = (DateTime.Now.Date - book.DueDate.Date).Days;
                     book.FineAmount = overdueDays * 10;
                     if (book.FineAmount > 0)

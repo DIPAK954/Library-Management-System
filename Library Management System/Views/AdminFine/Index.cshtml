@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Fine Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+</div>
+
+<div class="card shadow">
+    <div class="card-body p-4">
+        <table id="fineListTable" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Student Name</th>
+                    <th>PhoneNumber</th>
+                    <th>Book Title</th>
+                    <th>FineDate</th>
+                    <th>FineAmount</th>
+                    <th>FineType</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/adminfinelist.js"></script>
+}
