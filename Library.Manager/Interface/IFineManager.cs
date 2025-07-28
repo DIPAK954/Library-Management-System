@@ -6,5 +6,6 @@ namespace Library.Manager.Interface
     {
         public IEnumerable<StudentFineGrideModel> GetAllStudentFines();
         public bool MarkFinePaid(Guid id, string status);
+        public IEnumerable<StudentFineGrideModel> GetStudentFinesById(string id);
     }
 }

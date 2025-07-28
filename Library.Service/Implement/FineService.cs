@@ -37,6 +37,26 @@ namespace Library.Service.Implement
             return studentFines;
         }
 
+        public IEnumerable<StudentFineGrideModel> GetStudentFinesById(string id)
+        {
+            var Fines = _context.IssuedBooks
+                .Where(ib => ib.StudentId == id && ib.FineAmount > 0)
+                .Select(ib => new StudentFineGrideModel
+                {
+                    Id = ib.Id,
+                    StudentName = ib.Student.FullName,
+                    PhoneNumber = ib.Student.PhoneNumber,
+                    BookTitle = ib.Book.Title,
+                    FineAmount = ib.FineAmount,
+                    FineDate = ib.DueDate,
+                    FineStatus = ib.IsFinePaid,
+                    FineType = ib.FineType,
+                    Actions = string.Empty // Placeholder for actions, e.g., "Pay Fine", "View Details"
+                }).ToList();
+
+            return Fines;
+        }
+
         public bool MarkFinePaid(Guid id, string status)
         {
             var issues = _context.IssuedBooks.FirstOrDefault(ib => ib.Id == id);

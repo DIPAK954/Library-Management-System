@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "My Fines";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-5">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+</div>
+
+<div class="card shadow">
+    <div class="card-body p-4">
+        <table id="fineListTable" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Book Title</th>
+                    <th>FineDate</th>
+                    <th>FineAmount</th>
+                    <th>FineType</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/student fineslist.js"></script>
+}

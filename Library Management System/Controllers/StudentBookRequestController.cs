@@ -30,10 +30,7 @@ namespace Library_Management_System.Controllers
         public IActionResult GetAllMyBookRequest()
         {
             var bookRequests = _bookRequestManager.GetAllBookRequestByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            if (bookRequests == null || bookRequests.Count == 0)
-            {
-                return Json(new { success = false, message = "No book requests found." });
-            }
+     
             return Json(new { success = true, data = bookRequests });
         }
 

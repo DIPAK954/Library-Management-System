@@ -17,6 +17,11 @@ namespace Library.Manager.Implement
             return _fineService.GetAllStudentFines();
         }
 
+        public IEnumerable<StudentFineGrideModel> GetStudentFinesById(string id)
+        {
+            return _fineService.GetStudentFinesById(id);
+        }
+
         public bool MarkFinePaid(Guid id, string status)
         {
             return _fineService.MarkFinePaid(id, status);
