@@ -11,7 +11,16 @@
             { "data": "studentName" }, 
             { "data": "bookTitle" }, 
             { "data": "isbn" },
-            { "data": "requestDate" },
+            {
+                "data": "requestDate",
+                render: function (data) {
+                    const date = new Date(data);
+                    const day = ("0" + date.getDate()).slice(-2);
+                    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                    const year = date.getFullYear();
+                    return `${day}/${month}/${year}`;
+                }
+            },
             {
                 "data": "status",
                 render: function (data) {

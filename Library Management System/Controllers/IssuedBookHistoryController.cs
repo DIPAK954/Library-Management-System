@@ -26,10 +26,6 @@ namespace Library_Management_System.Controllers
             {
                 var issuedBooks = _issuedBookManager.GetAllIssuedBooks();
                 
-                if (issuedBooks == null || !issuedBooks.Any())
-                {
-                    return NotFound("No issued books found.");
-                }
                 return Json(new { data = issuedBooks });
             }
             catch (Exception ex)

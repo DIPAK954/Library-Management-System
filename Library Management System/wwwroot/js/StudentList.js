@@ -28,7 +28,15 @@ $(document).ready(function () {
             { "data": "fullName" },
             { "data": "email" }, 
             { "data": "phoneNumber" },
-            { "data": "createdAt" },
+            {
+                "data": "createdAt",
+                render: function (data) {
+                    const date = new Date(data);
+                    const day = ("0" + date.getDate()).slice(-2);
+                    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+                    const year = date.getFullYear();
+                    return `${day}/${month}/${year}`;
+                } },
             {
                 "data": "actions",
                 render: function (data, type, row) {
