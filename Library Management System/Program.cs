@@ -36,6 +36,9 @@ builder.Services.AddScoped<IIssuedBookManager, IssuedBookManager>();
 builder.Services.AddScoped<IIssuedBookService, IssuedBookService>();
 builder.Services.AddScoped<IFineManager, FineManager>();
 builder.Services.AddScoped<IFineService, FineService>();
+builder.Services.AddScoped<IDashboardManager, DashboardManager>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
 
 builder.Services.AddRazorPages();
 

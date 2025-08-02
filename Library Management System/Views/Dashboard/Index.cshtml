@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+</div>
+
+<div class="container">
+
+    <!-- Stat Cards Row -->
+    <div class="row g-4 mb-4">
+        <!-- Total Books -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-book fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Total Books</p>
+                        <h5 class="mb-0 fw-bold">@ViewBag.TotalBooks</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Borrowed Books -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-journal-arrow-up fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Borrowed Books</p>
+                        <h5 class="mb-0 fw-bold">@ViewBag.TotalBorrowedBooks</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overdue Books -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-warning text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-exclamation-circle fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Overdue Books</p>
+                        <h5 class="mb-0 fw-bold text-danger">@ViewBag.TotalOverDueBooks</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lost Books -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-journal-x fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Lost Books</p>
+                        <h5 class="mb-0 fw-bold text-success">@ViewBag.TotalLostBooks</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fine Collected -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-danger text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-cash-coin fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Fine Collected</p>
+                        <h5 class="mb-0 fw-bold text-success">₹@ViewBag.TotalFines</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Member -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-info text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-person fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Total Members</p>
+                        <h5 class="mb-0 fw-bold">@ViewBag.TotalMembers</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart + Table Row -->
+    <div class="row g-4">
+
+        <!-- Left: Line Chart Card -->
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-white text-primary fw-bold">Borrow vs Return</div>
+                <div class="card-body">
+                    <canvas id="borrowReturnChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Pie Chart Card -->
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-white text-success fw-bold">Books by Category</div>
+                <div class="card-body">
+                    <canvas id="categoryPieChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="~/js/admindashboard.js"></script>
+}
