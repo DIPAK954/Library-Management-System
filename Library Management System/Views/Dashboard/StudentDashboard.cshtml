@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_StudentLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+    <h2 class="mb-0">@ViewData["Title"]</h2>
+</div>
+
+<div class="container">
+
+    <!-- Stat Cards -->
+    <div class="row g-4 mb-4">
+        <!-- Total Books Borrowed -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-journal-arrow-up fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Borrowed Books</p>
+                        <h5 class="mb-0 fw-bold">@ViewBag.BorrowedBooks</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Books Due -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-warning text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-clock-history fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Books Due</p>
+                        <h5 class="mb-0 fw-bold text-danger">@ViewBag.DueBooks</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Fine -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-danger text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-cash-coin fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Pending Fine</p>
+                        <h5 class="mb-0 fw-bold text-success">₹@ViewBag.TotalFine</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lost Books -->
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                        <i class="bi bi-journal-x fs-5"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 text-muted">Lost Books</p>
+                        <h5 class="mb-0 fw-bold text-success">@ViewBag.TotalLostBooks</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

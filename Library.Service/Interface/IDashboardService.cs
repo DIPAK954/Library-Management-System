@@ -1,4 +1,6 @@
-﻿using System;
+﻿using library.DataModel.Models;
+using Library.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,12 @@ namespace Library.Service.Interface
         public decimal GetTotalLostBooks();
         Dictionary<string, (int Borrowed, int Returned)> GetBorrowReturnTrends();
         public Dictionary<string, int> GetBookGenreDistribution();
+        public decimal GetTotalBorrowBooksByStudentId(string userId);
+        public decimal GetTotalOverDueBooksByStudentId(string userId);
+        public decimal GetTotalFinesByStudentId(string userId);
+        public decimal GetTotalLostBooksByStudentId(string userId);
+        public List<BookModel> GetPopularBooks();
+        public List<BookModel> GetNewArrivals();
 
     }
 }

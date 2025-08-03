@@ -1,6 +1,7 @@
 ﻿using Library.Manager.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Library_Management_System.Controllers
 {
@@ -52,6 +53,11 @@ namespace Library_Management_System.Controllers
         [Authorize(Roles = "Student")]
         public IActionResult StudentDashboard()
         {
+            ViewBag.BorrowedBooks = _dashboardManager.GetTotalBorrowBooksByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            ViewBag.DueBooks = _dashboardManager.GetTotalOverDueBooksByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            ViewBag.TotalFine = _dashboardManager.GetTotalFinesByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            ViewBag.TotalLostBooks = _dashboardManager.GetTotalLostBooksByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
             return View();
         }
     }
