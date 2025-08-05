@@ -65,7 +65,7 @@ namespace Library.Service.Implement
 
         public List<BookModel> GetNewArrivals()
         {
-            DateTime lastMonth = DateTime.Now.AddDays(-30); // last 30 days
+            DateTime lastMonth = DateTime.Now.AddDays(-10); // last 10 days
 
             var newBooks = _context.Books
                 .Where(b => b.CreatedAt >= lastMonth && b.status == (int)BookStatus.Available)
@@ -77,7 +77,8 @@ namespace Library.Service.Implement
                     Title = b.Title,
                     Author = b.Author,
                     Genre = b.Genre,
-                    Status = b.status
+                    Status = b.status,
+                    CoverImagePath = b.CoverImageUrl
                 })
                 .ToList();
 
@@ -99,7 +100,8 @@ namespace Library.Service.Implement
                     Title = b.Title,
                     Author = b.Author,
                     Genre = b.Genre,
-                    Status = b.status
+                    Status = b.status,
+                    CoverImagePath = b.CoverImageUrl
                 })
                 .ToList();
 

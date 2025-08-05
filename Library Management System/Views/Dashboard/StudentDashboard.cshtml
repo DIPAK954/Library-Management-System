@@ -72,4 +72,78 @@
         </div>
     </div>
 
+    <!-- Popular Book -->
+    <h4>📈 Popular Books</h4>
+    <div class="container mt-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @foreach (var book in ViewBag.popularBooks)
+            {
+                <div class="col">
+                    <a href="/StudentBookRequest/RequestBook/@book.Id" style="text-decoration: none; color: inherit;">
+                        <div class="card h-100 border-0 shadow-sm" style="width: 100%; min-height: 100%;">
+
+                            <div style="height: 220px; background-color: #f7f7f7; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                <img src="@Url.Content(book.CoverImagePath ?? "~/images/default-book.png")"
+                                     alt="@book.Title"
+                                     style="max-height: 100%; width: auto; object-fit: contain;" />
+                            </div>
+
+                            <div class="card-body p-2">
+                                <h6 class="card-title text-truncate" title="@book.Title" style="font-weight: 600;">
+                                    @book.Title
+                                </h6>
+
+                                <p class="text-muted mb-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    by @book.Author
+                                </p>
+
+                                <span class="badge mt-2 @(book.Status == 0 ? "bg-success" : "bg-danger")">
+                                    @(book.Status == 0 ? "Available" : "Archived")
+                                </span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <!-- New Arrivals -->
+    <h4 class="mt-4">🆕 New Arrivals</h4>
+    <div class="container mt-4">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+                @foreach (var book in @ViewBag.newArrivals)
+                {
+                    <div class="col">
+                        <a href="/StudentBookRequest/RequestBook/@book.Id" style="text-decoration: none; color: inherit;">
+                            <div class="card h-100 border-0 shadow-sm" style="width: 100%; min-height: 100%;">
+
+                                <div style="height: 220px; background-color: #f7f7f7; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                    <img src="@Url.Content(book.CoverImagePath ?? "~/images/default-book.png")"
+                                         alt="@book.Title"
+                                         style="max-height: 100%; width: auto; object-fit: contain;" />
+                                </div>
+
+                                <div class="card-body p-2">
+                                    <h6 class="card-title text-truncate" title="@book.Title" style="font-weight: 600;">
+                                        @book.Title
+                                    </h6>
+
+                                    <p class="text-muted mb-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        by @book.Author
+                                    </p>
+
+                                    <span class="badge mt-2 @(book.Status == 0 ? "bg-success" : "bg-danger")">
+                                        @(book.Status == 0 ? "Available" : "Archived")
+                                    </span>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+    </div>
 </div>

@@ -1,4 +1,5 @@
-﻿using Library.Manager.Interface;
+﻿using Library.Common.Models;
+using Library.Manager.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -57,6 +58,9 @@ namespace Library_Management_System.Controllers
             ViewBag.DueBooks = _dashboardManager.GetTotalOverDueBooksByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
             ViewBag.TotalFine = _dashboardManager.GetTotalFinesByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
             ViewBag.TotalLostBooks = _dashboardManager.GetTotalLostBooksByStudentId(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            ViewBag.popularBooks = _dashboardManager.GetPopularBooks();
+            ViewBag.newArrivals = _dashboardManager.GetNewArrivals();
 
             return View();
         }
