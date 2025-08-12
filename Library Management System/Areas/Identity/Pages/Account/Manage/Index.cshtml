@@ -2,6 +2,7 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
+    Layout = Model.UserRole == "Admin" ? "~/views/shared/_layout.cshtml" : "_StudentLayout";
 }
 
 <div class="container py-4">

@@ -33,6 +33,7 @@ namespace Library_Management_System.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public string Username { get; set; }
+        public string UserRole { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -105,6 +106,9 @@ namespace Library_Management_System.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            UserRole = roles.FirstOrDefault(); // Get the first role (Student/Admin)
 
             await LoadAsync(user);
             return Page();
