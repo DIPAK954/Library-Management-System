@@ -14,12 +14,12 @@
                     <!-- Profile Image -->
                     <div class="position-relative d-inline-block">
                         <img id="profileImagePreview"
-                             src="@(string.IsNullOrEmpty(Model.Input.IdCard) ? "/images/default-profile.png" : Model.Input.IdCard)"
+                             src="@(string.IsNullOrEmpty(Model.Input.IdCard) ? Url.Content("~/default-profile.png") : Model.Input.IdCard)"
                              class="rounded img-fluid border"
                              alt="Profile"
                              style="width: 200px; height: 200px; object-fit: cover;">
                         <label for="profileImageUpload"
-                               class="btn btn-light mt-3 w-100">Upload Photo</label>
+                               class="btn btn-primary mt-3 w-100">Upload Photo</label>
                         <input type="file" id="profileImageUpload" name="Input.IdCard" class="d-none" accept="image/*" />
                     </div>
 
