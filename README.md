@@ -58,6 +58,10 @@ The system helps librarians and students manage books, borrowing, fines, and rep
 
 ![App Screenshot](<Library Management System/wwwroot/screens/Student Fine.png>)
 
+**User Profile**
+
+![App Screenshot](<Library Management System/wwwroot/screens/User Profile.png>)
+
 ### Login & Register
 
 ![App Screenshot](<Library Management System/wwwroot/screens/Library Login.png>)
